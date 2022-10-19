@@ -162,9 +162,12 @@ class KNearestNeighbor:
             # label.                                                                #
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-             
-            y_pred[i] = sorted([y for y in set(closest_y)])[-1]
-            
+            y_count = np.bincount(closest_y) 
+            max_count = max(y_count)
+            for y in closest_y:
+                if(np.sum(closest_y == y) == max_count):
+                    y_pred[i] = y
+                    break   
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 

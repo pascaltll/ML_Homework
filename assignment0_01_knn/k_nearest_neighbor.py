@@ -160,10 +160,7 @@ class KNearestNeighbor:
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
             closest_y = self.y_train[k_nearest_index]
-
             y_pred[i] = np.argmax(np.bincount(closest_y))
-        
-
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred

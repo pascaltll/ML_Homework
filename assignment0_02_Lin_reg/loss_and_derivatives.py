@@ -88,8 +88,7 @@ class LossAndDerivatives:
 
         # YOUR CODE HERE
         #check dimention
-        return np.mean(2*X.dot(w)*(X.dot(w) - Y))
-
+        return X.T.dot(X.dot(w) - Y)/(2.*len(X))
     @staticmethod
     def mae_derivative(X, Y, w):
         """
@@ -108,7 +107,7 @@ class LossAndDerivatives:
 
         # YOUR CODE HERE
         #chek dimentions
-        return np.mean(np.sign(X.dot(w) - Y))
+        return X.T.dot(np.sign(X.dot(w) - Y))/(4.*len(X))
 
     @staticmethod
     def l2_reg_derivative(w):
@@ -135,7 +134,7 @@ class LossAndDerivatives:
         """
 
         # YOUR CODE HERE
-        return np.sum(np.sign(w))
+        return np.sign(w)
 
     @staticmethod
     def no_reg_derivative(w):

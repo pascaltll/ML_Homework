@@ -1,3 +1,22 @@
+
+import numpy as np
+import pandas as pd
+
+import torch
+from torch import nn
+import torch.nn.functional as F
+
+import tqdm
+
+
+class ThreeInputsNet(nn.Module):
+    def __init__(self, n_tokens, n_cat_features, concat_number_of_features, hid_size=64):
+        super(ThreeInputsNet, self).__init__()
+        self.title_emb = nn.Embedding(n_tokens, embedding_dim=hid_size)
+        # <YOUR CODE HERE> 
+        self.title_seq = nn.Sequential( 
+            nn.Conv1d(hid_size, hid_size, kernel_size=2), 
+            nn.ReLU(), 
             nn.AdaptiveAvgPool1d(output_size=1),
             )
         
@@ -6,10 +25,10 @@
         self.full_seq = nn.Sequential(
             nn.Conv1d(in_channels=hid_size, out_channels=hid_size*2, kernel_size=2), 
             nn.ReLU(), 
-            nn.BatchNorm1d(2*hid_size),
-        	nn.Conv1d(in_channels=hid_size*2, out_channels=hid_size*2, kernel_size=2),
-        	nn.ReLU(),
-        	nn.AdaptiveAvgPool1d(output_size=1),
+            nn.BatchNorm1d(hid_size*2),
+        	  nn.Conv1d(in_channels=hid_size*2, out_channels=hid_size*2, kernel_size=2),
+        	  nn.ReLU(),
+        	  nn.AdaptiveAvgPool1d(output_size=1),
         	)
         
         self.category_out = nn.Linear(in_features=n_cat_features, out_features=hid_size)
